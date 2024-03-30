@@ -5,32 +5,9 @@ from tensorflow.keras.models import load_model
 from PIL import Image
 import numpy as np
 import time
-import requests
-from io import BytesIO
-
-model_url = 'https://drive.google.com/file/d/1UOj5kZB2Nv5R_UNn9_09cundJH8qT0Wv/view?usp=sharing'
-
-# Function to download the model file from Google Drive and save it locally
-@st.cache_resource
-def download_model(url, destination):
-    response = requests.get(url)
-    with open(destination, 'wb') as f:
-        f.write(response.content)
-
-# Download the model file from Google Drive
-model_filename = 'my_CNN.h5'
-download_model(model_url, model_filename)
-
-# Load the trained model from the downloaded file
-@st.cache_resource
-def load_remote_model():
-    model = load_model(model_filename)
-    return model
-
-model = load_remote_model()
 
 # Load the trained model
-#model = load_model('https://drive.google.com/file/d/1UOj5kZB2Nv5R_UNn9_09cundJH8qT0Wv/view?usp=sharing')
+model = load_model('C:/Users/sandeep/Desktop/DL Model Deployment/model/surface_crack.h5')
 
 def preprocess_image(image_file):
     img = Image.open(image_file)
@@ -54,12 +31,11 @@ def main():
             prediction = model.predict(img)
 
         if prediction[0][0] >= 0.5:
-            st.write("Surface type : Cracked Surface")
+            st.write("Surface type : Surface is cracked !")
         else:
-            st.write("Surface type : No Cracks Found")
+            st.write("Surface type : No cracks found on the surface.")
 
     st.caption("Project completed by Sandeep")    
 
 if __name__ == '__main__':
     main()
-
