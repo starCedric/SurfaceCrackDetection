@@ -7,7 +7,7 @@ import numpy as np
 import time
 
 # Load the trained model
-model = load_model('C:/Users/sandeep/Desktop/DL Model Deployment/model/surface_crack.h5')
+model = load_model('SurfaceCrackDetection/model/surface_crack.h5')
 
 def preprocess_image(image_file):
     img = Image.open(image_file)
